@@ -1,0 +1,1719 @@
+From: <ÓÉ Windows Internet Explorer 7 ±£´æ>
+Subject: Java Concurrency in Practice
+Date: Thu, 1 Nov 2012 10:10:52 +0800
+MIME-Version: 1.0
+Content-Type: multipart/related;
+	type="text/html";
+	boundary="----=_NextPart_000_0000_01CDB819.2C97EE20"
+X-MimeOLE: Produced By Microsoft MimeOLE V6.00.2900.6157
+
+This is a multi-part message in MIME format.
+
+------=_NextPart_000_0000_01CDB819.2C97EE20
+Content-Type: text/html;
+	charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://www.javaconcurrencyinpractice.com/listings.html
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD><TITLE>Java Concurrency in Practice</TITLE>
+<META http-equiv=3DContent-Type content=3D"text/html; =
+charset=3DISO-8859-1"><LINK=20
+href=3D"http://www.javaconcurrencyinpractice.com/jcip.css" =
+type=3Dtext/css=20
+rel=3Dstylesheet>
+<META content=3D"tb, default" name=3D"Microsoft Border">
+<STYLE>.ListingTitle {
+=09
+}
+</STYLE>
+
+<META content=3D"MSHTML 6.00.6000.17112" name=3DGENERATOR></HEAD>
+<BODY class=3Dchaptoc><!-- page header -->
+<H1 class=3DPageTitle>Code Listings</H1><PRE>    Written by Brian Goetz =
+and Tim Peierls with assistance from members of
+    JCP JSR-166 Expert Group and released to the public domain, as =
+explained at
+    <A =
+href=3D"http://creativecommons.org/licenses/publicdomain">http://creative=
+commons.org/licenses/publicdomain</A>
+  </PRE><!-- page body -->
+<P class=3DChapTOC>Introduction</P>
+<P class=3Dpuzzletitletoc>1.1 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/UnsafeSequence.=
+java">Non-thread-safe=20
+sequence generator.</A></P>
+<P class=3Dpuzzletitletoc>1.2 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/Sequence.java">=
+Thread-safe=20
+sequence generator.</A></P>
+<P class=3DChapTOC>Thread Safety</P>
+<P class=3Dpuzzletitletoc>2.1 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/StatelessFactor=
+izer.java">A=20
+stateless servlet.</A></P>
+<P class=3Dpuzzletitletoc>2.2 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/UnsafeCountingF=
+actorizer.java">Servlet=20
+that counts requests without the necessary synchronization.</A> <IMG =
+height=3D20=20
+alt=3D(bad) =
+src=3D"http://www.javaconcurrencyinpractice.com/images/mryuk.gif"=20
+width=3D20></P>
+<P class=3Dpuzzletitletoc>2.3 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/LazyInitRace.ja=
+va">Race=20
+condition in lazy initialization.</A> <IMG height=3D20 alt=3D(bad)=20
+src=3D"http://www.javaconcurrencyinpractice.com/images/mryuk.gif" =
+width=3D20></P>
+<P class=3Dpuzzletitletoc>2.4 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/CountingFactori=
+zer.java">Servlet=20
+that counts requests using AtomicLong.<A></P>
+<P class=3Dpuzzletitletoc>2.5 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/UnsafeCachingFa=
+ctorizer.java">Servlet=20
+that attempts to cache its last result without adequate atomicity.</A> =
+<IMG=20
+height=3D20 alt=3D(bad)=20
+src=3D"http://www.javaconcurrencyinpractice.com/images/mryuk.gif" =
+width=3D20></P>
+<P class=3Dpuzzletitletoc>2.6 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/SynchronizedFac=
+torizer.java">Servlet=20
+that caches last result, but with unnacceptably poor concurrency.</A> =
+<IMG=20
+height=3D20 alt=3D(bad)=20
+src=3D"http://www.javaconcurrencyinpractice.com/images/mryuk.gif" =
+width=3D20></P>
+<P class=3Dpuzzletitletoc>2.7 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/NonReentrantDea=
+dlock.java">Code=20
+that would deadlock if intrinsic locks were not reentrant.</A></P>
+<P class=3Dpuzzletitletoc>2.8 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/CachedFactorize=
+r.java">Servlet=20
+that caches its last request and result.</A></P>
+<P class=3DChapTOC>Sharing Objects</P>
+<P class=3Dpuzzletitletoc>3.1 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/NoVisibility.ja=
+va">Sharing=20
+variables without synchronization.</A> <IMG height=3D20 alt=3D(bad)=20
+src=3D"http://www.javaconcurrencyinpractice.com/images/mryuk.gif" =
+width=3D20> </P>
+<P class=3Dpuzzletitletoc>3.2 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/MutableInteger.=
+java">Non-thread-safe=20
+mutable integer holder.</A> </P>
+<P class=3Dpuzzletitletoc>3.3 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/SynchronizedInt=
+eger.java">Thread-safe=20
+mutable integer holder.</A> </P>
+<P class=3Dpuzzletitletoc>3.4 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/CountingSheep.j=
+ava">Counting=20
+sheep.</A> </P>
+<P class=3Dpuzzletitletoc>3.5 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/Secrets.java">P=
+ublishing=20
+an object.</A> </P>
+<P class=3Dpuzzletitletoc>3.6 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/UnsafeStates.ja=
+va">Allowing=20
+internal mutable state to escape.</A> <IMG height=3D20 alt=3D(bad)=20
+src=3D"http://www.javaconcurrencyinpractice.com/images/mryuk.gif" =
+width=3D20> </P>
+<P class=3Dpuzzletitletoc>3.7 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/ThisEscape.java=
+">Implicitly=20
+allowing the this reference to escape.</A> <IMG height=3D20 alt=3D(bad)=20
+src=3D"http://www.javaconcurrencyinpractice.com/images/mryuk.gif" =
+width=3D20> </P>
+<P class=3Dpuzzletitletoc>3.8 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/SafeListener.ja=
+va">Using=20
+a factory method to prevent the this reference from escaping during=20
+construction.</A> </P>
+<P class=3Dpuzzletitletoc>3.9 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/Animals.java">T=
+hread=20
+confinement of local primitive and reference variables.</A> </P>
+<P class=3Dpuzzletitletoc>3.10 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/ConnectionDispe=
+nser.java">Using=20
+ThreadLocal to ensure thread confinement.</A> </P>
+<P class=3Dpuzzletitletoc>3.11 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/ThreeStooges.ja=
+va">Immutable=20
+class built out of mutable underlying objects.</A> </P>
+<P class=3Dpuzzletitletoc>3.12 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/OneValueCache.j=
+ava">Immutable=20
+holder for caching a number and its factors.</A> </P>
+<P class=3Dpuzzletitletoc>3.13 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/VolatileCachedF=
+actorizer.java">Caching=20
+the last result using a volatile reference to an immutable holder =
+object.</A>=20
+</P>
+<P class=3Dpuzzletitletoc>3.14 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/StuffIntoPublic=
+.java">Publishing=20
+an object without adequate synchronization.</A> <IMG height=3D20 =
+alt=3D(bad)=20
+src=3D"http://www.javaconcurrencyinpractice.com/images/mryuk.gif" =
+width=3D20> </P>
+<P class=3Dpuzzletitletoc>3.15 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/Holder.java">Cl=
+ass at=20
+risk of failure if not properly published.</A> </P>
+<P class=3DChapTOC>Composing Objects</P>
+<P class=3Dpuzzletitletoc>4.1 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/Counter.java">S=
+imple=20
+thread-safe counter using the Java monitor pattern.</A> </P>
+<P class=3Dpuzzletitletoc>4.2 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/PersonSet.java"=
+>Using=20
+confinement to ensure thread safety.</A> </P>
+<P class=3Dpuzzletitletoc>4.3 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/PrivateLock.jav=
+a">Guarding=20
+state with a private lock.</A> </P>
+<P class=3Dpuzzletitletoc>4.4 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/MonitorVehicleT=
+racker.java">Monitor-based=20
+vehicle tracker implementation.</A> </P>
+<P class=3Dpuzzletitletoc>4.5 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/MutablePoint.ja=
+va">Mutable=20
+point class similar to java.awt.Point.</A> </P>
+<P class=3Dpuzzletitletoc>4.6 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/Point.java">Imm=
+utable=20
+Point class used by DelegatingVehicleTracker.</A> </P>
+<P class=3Dpuzzletitletoc>4.7 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/DelegatingVehic=
+leTracker.java">Delegating=20
+thread safety to a ConcurrentHashMap.</A></P>
+<P class=3Dpuzzletitletoc>4.8 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/DelegatingVehic=
+leTracker.java">Returning=20
+a static copy of the location set instead of a 'live' one.</A> </P>
+<P class=3Dpuzzletitletoc>4.9 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/VisualComponent=
+.java">Delegating=20
+thread safety to multiple underlying state variables.</A> </P>
+<P class=3Dpuzzletitletoc>4.10 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/NumberRange.jav=
+a">Number=20
+range class that does not sufficiently protect its invariants.</A> <IMG=20
+height=3D20 alt=3D(bad)=20
+src=3D"http://www.javaconcurrencyinpractice.com/images/mryuk.gif" =
+width=3D20> </P>
+<P class=3Dpuzzletitletoc>4.11 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/SafePoint.java"=
+>Thread-safe=20
+mutable point class.</A> </P>
+<P class=3Dpuzzletitletoc>4.12 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/PublishingVehic=
+leTracker.java">Vehicle=20
+tracker that safely publishes underlying state.</A> </P>
+<P class=3Dpuzzletitletoc>4.13 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/BetterVector.ja=
+va">Extending=20
+Vector to have a put-if-absent method.</A> </P>
+<P class=3Dpuzzletitletoc>4.14 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/ListHelpers.jav=
+a">Non-thread-safe=20
+attempt to implement put-if-absent.</A> <IMG height=3D20 alt=3D(bad)=20
+src=3D"http://www.javaconcurrencyinpractice.com/images/mryuk.gif" =
+width=3D20></P>
+<P class=3Dpuzzletitletoc>4.15 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/ListHelpers.jav=
+a">Implementing=20
+put-if-absent with client-side locking.</A> </P>
+<P class=3Dpuzzletitletoc>4.16 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/ImprovedList.ja=
+va">Implementing=20
+put-if-absent using composition.</A> </P>
+<P class=3DChapTOC>Building Blocks</P>
+<P class=3Dpuzzletitletoc>5.1 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/UnsafeVectorHel=
+pers.java">Compound=20
+actions on a Vector that may produce confusing results.</A> </P>
+<P class=3Dpuzzletitletoc>5.2 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/SafeVectorHelpe=
+rs.java">Compound=20
+actions on Vector using client-side locking.</A> </P>
+<P class=3Dpuzzletitletoc>5.3 Iteration that may throw=20
+ArrayIndexOutOfBoundsException. (fragment)</P>
+<P class=3Dpuzzletitletoc>5.4 Iteration with client-side locking. =
+(fragment)</P>
+<P class=3Dpuzzletitletoc>5.5 Iterating a List with an Iterator. =
+(fragment)</P>
+<P class=3Dpuzzletitletoc>5.6 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/HiddenIterator.=
+java">Iteration=20
+hidden within string concatenation.</A> <IMG height=3D20 alt=3D(bad)=20
+src=3D"http://www.javaconcurrencyinpractice.com/images/mryuk.gif" =
+width=3D20> </P>
+<P class=3Dpuzzletitletoc>5.7 <A=20
+href=3D"http://java.sun.com/j2se/1.5.0/docs/api/java/util/concurrent/Conc=
+urrentMap.html#method_summary">ConcurrentMap=20
+interface.</A> (external link to Javadoc)</P>
+<P class=3Dpuzzletitletoc>5.8 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/ProducerConsume=
+r.java">Producer=20
+and consumer tasks in a desktop search application.</A> </P>
+<P class=3Dpuzzletitletoc>5.9 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/ProducerConsume=
+r.java">Starting=20
+the desktop search.</A> </P>
+<P class=3Dpuzzletitletoc>5.10 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/TaskRunnable.ja=
+va">Restoring=20
+the interrupted status so as not to swallow the interrupt.</A> </P>
+<P class=3Dpuzzletitletoc>5.11 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/TestHarness.jav=
+a">Using=20
+CountDownLatch for starting and stopping threads in timing =
+tests.</A></P>
+<P class=3Dpuzzletitletoc>5.12 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/Preloader.java"=
+>Using=20
+FutureTask to preload data that is needed later.</A> </P>
+<P class=3Dpuzzletitletoc>5.13 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/LaunderThrowabl=
+e.java">Coercing=20
+an unchecked Throwable to a RuntimeException.</A> </P>
+<P class=3Dpuzzletitletoc>5.14 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/BoundedHashSet.=
+java">Using=20
+Semaphore to bound a collection.</A> </P>
+<P class=3Dpuzzletitletoc>5.15 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/CellularAutomat=
+a.java">Coordinating=20
+computation in a cellular automaton with CyclicBarrier.</A> </P>
+<P class=3Dpuzzletitletoc>5.16 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/Memoizer1.java"=
+>Initial=20
+cache attempt using HashMap and synchronization.</A> </P>
+<P class=3Dpuzzletitletoc>5.17 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/Memoizer2.java"=
+>Replacing=20
+HashMap with ConcurrentHashMap.</A> </P>
+<P class=3Dpuzzletitletoc>5.18 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/Memoizer2.java"=
+>Memoizing=20
+wrapper using FutureTask.</A> </P>
+<P class=3Dpuzzletitletoc>5.19 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/Memoizer.java">=
+Final=20
+implementation of Memoizer.</A></P>
+<P class=3Dpuzzletitletoc>5.20 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/Factorizer.java=
+">Factorizing=20
+servlet that caches results using Memoizer.</A> </P>
+<P class=3DChapTOC>Task Execution</P>
+<P class=3Dpuzzletitletoc>6.1 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/SingleThreadWeb=
+Server.java">Sequential=20
+web server. </A></P>
+<P class=3Dpuzzletitletoc>6.2 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/ThreadPerTaskWe=
+bServer.java">Web=20
+server that starts a new thread for each request.</A> </P>
+<P class=3Dpuzzletitletoc>6.3 <A=20
+href=3D"http://java.sun.com/j2se/1.5.0/docs/api/java/util/concurrent/Exec=
+utor.html#method_summary">Executor=20
+interface.</A> (external link to Javadoc) </P>
+<P class=3Dpuzzletitletoc>6.4 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/TaskExecutionWe=
+bServer.java">Web=20
+server using a thread pool.</A> </P>
+<P class=3Dpuzzletitletoc>6.5 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/ThreadPerTaskEx=
+ecutor.java">Executor=20
+that starts a new thread for each task.</A> </P>
+<P class=3Dpuzzletitletoc>6.6 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/WithinThreadExe=
+cutor.java">Executor=20
+that executes tasks synchronously in the calling thread.</A> </P>
+<P class=3Dpuzzletitletoc>6.7 <A=20
+href=3D"http://java.sun.com/j2se/1.5.0/docs/api/java/util/concurrent/Exec=
+utorService.html#method_summary">Lifecycle=20
+methods in ExecutorService.</A> (external link to Javadoc, shows =
+<EM>all</EM>=20
+methods, not just lifecycle methods) </P>
+<P class=3Dpuzzletitletoc>6.8 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/LifecycleWebSer=
+ver.java">Web=20
+server with shutdown support.</A> </P>
+<P class=3Dpuzzletitletoc>6.9 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/OutOfTime.java"=
+>Class=20
+illustrating confusing Timer behavior.</A> </P>
+<P class=3Dpuzzletitletoc>6.10 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/SingleThreadRen=
+derer.java">Rendering=20
+page elements sequentially.</A> </P>
+<P class=3Dpuzzletitletoc>6.11 <A=20
+href=3D"http://java.sun.com/j2se/1.5.0/docs/api/java/util/concurrent/Call=
+able.html#method_summary">Callable</A>=20
+and <A=20
+href=3D"http://java.sun.com/j2se/1.5.0/docs/api/java/util/concurrent/Futu=
+re.html#method_summary">Future</A>=20
+interfaces. (external links to Javadoc) </P>
+<P class=3Dpuzzletitletoc>6.12 Default implementation of newTaskFor in=20
+ThreadPoolExecutor. (See JDK source) </P>
+<P class=3Dpuzzletitletoc>6.13 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/FutureRenderer.=
+java">Waiting=20
+for image download with Future.</A> </P>
+<P class=3Dpuzzletitletoc>6.14 QueueingFuture class used by=20
+ExecutorCompletionService. (See JDK source) </P>
+<P class=3Dpuzzletitletoc>6.15 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/Renderer.java">=
+Using=20
+CompletionService to render page elements as they become =
+available.</A></P>
+<P class=3Dpuzzletitletoc>6.16 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/RenderWithTimeB=
+udget.java">Fetching=20
+an advertisement with a time budget.</A> </P>
+<P class=3Dpuzzletitletoc>6.17 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/TimeBudget.java=
+">Requesting=20
+travel quotes under a time budget.</A> </P>
+<P class=3DChapTOC>Cancellation and Shutdown</P>
+<P class=3Dpuzzletitletoc>7.1 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/PrimeGenerator.=
+java">Using=20
+a volatile field to hold cancellation state.</A> </P>
+<P class=3Dpuzzletitletoc>7.2 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/PrimeGenerator.=
+java">Generating=20
+a second's worth of prime numbers.</A> </P>
+<P class=3Dpuzzletitletoc>7.3 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/BrokenPrimeProd=
+ucer.java">Unreliable=20
+cancellation that can leave producers stuck in a blocking operation.</A> =
+<IMG=20
+height=3D20 alt=3D(bad)=20
+src=3D"http://www.javaconcurrencyinpractice.com/images/mryuk.gif" =
+width=3D20> </P>
+<P class=3Dpuzzletitletoc>7.4 <A=20
+href=3D"http://java.sun.com/j2se/1.5.0/docs/api/java/lang/Thread.html#met=
+hod_summary">Interruption=20
+methods in Thread.</A> (external link to Javadoc, shows <EM>all</EM>=20
+<TT>Thread</TT> methods, not just interruption-related) </P>
+<P class=3Dpuzzletitletoc>7.5 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/PrimeProducer.j=
+ava">Using=20
+interruption for cancellation.</A> </P>
+<P class=3Dpuzzletitletoc>7.6 Propagating InterruptedException to =
+callers.=20
+(fragment) </P>
+<P class=3Dpuzzletitletoc>7.7 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/NoncancelableTa=
+sk.java">Noncancelable=20
+task that restores interruption before exit.</A> </P>
+<P class=3Dpuzzletitletoc>7.8 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/TimedRun1.java"=
+>Scheduling=20
+an interrupt on a borrowed thread.</A> <IMG height=3D20 alt=3D(bad)=20
+src=3D"http://www.javaconcurrencyinpractice.com/images/mryuk.gif" =
+width=3D20> </P>
+<P class=3Dpuzzletitletoc>7.9 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/TimedRun2.java"=
+>Interrupting=20
+a task in a dedicated thread.</A> </P>
+<P class=3Dpuzzletitletoc>7.10 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/TimedRun.java">=
+Cancelling=20
+a task using Future.</A> </P>
+<P class=3Dpuzzletitletoc>7.11 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/ReaderThread.ja=
+va">Encapsulating=20
+nonstandard cancellation in a Thread by overriding interrupt.</A> </P>
+<P class=3Dpuzzletitletoc>7.12 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/SocketUsingTask=
+.java">Encapsulating=20
+nonstandard cancellation in a task with newTaskFor. </A></P>
+<P class=3Dpuzzletitletoc>7.13 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/LogWriter.java"=
+>Producer-consumer=20
+logging service with no shutdown support.</A> </P>
+<P class=3Dpuzzletitletoc>7.14 Unreliable way to add shutdown support to =
+the=20
+logging service. (fragment) </P>
+<P class=3Dpuzzletitletoc>7.15 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/LogService.java=
+">Adding=20
+reliable cancellation to LogWriter.</A> </P>
+<P class=3Dpuzzletitletoc>7.16 Logging service that uses an =
+ExecutorService. </P>
+<P class=3Dpuzzletitletoc>7.17 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/IndexingService=
+.java">Shutdown=20
+with poison pill.</A> </P>
+<P class=3Dpuzzletitletoc>7.18 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/IndexingService=
+.java">Producer=20
+thread for IndexingService.</A> </P>
+<P class=3Dpuzzletitletoc>7.19 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/IndexingService=
+.java">Consumer=20
+thread for IndexingService.</A> </P>
+<P class=3Dpuzzletitletoc>7.20 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/CheckForMail.ja=
+va">Using=20
+a private Executor whose lifetime is bounded by a method call.</A> </P>
+<P class=3Dpuzzletitletoc>7.21 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/TrackingExecuto=
+r.java">ExecutorService=20
+that keeps track of cancelled tasks after shutdown.</A> </P>
+<P class=3Dpuzzletitletoc>7.22 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/WebCrawler.java=
+">Using=20
+TrackingExecutorService to save unfinished tasks for later =
+execution.</A> </P>
+<P class=3Dpuzzletitletoc>7.23 Typical thread-pool worker thread =
+structure.=20
+(fragment) </P>
+<P class=3Dpuzzletitletoc>7.24 <A=20
+href=3D"http://java.sun.com/j2se/1.5.0/docs/api/java/lang/Thread.Uncaught=
+ExceptionHandler.html#method_summary">UncaughtExceptionHandler=20
+interface.</A> (external link to Javadoc) </P>
+<P class=3Dpuzzletitletoc>7.25 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/UEHLogger.java"=
+>UncaughtExceptionHandler=20
+that logs the exception.</A> </P>
+<P class=3Dpuzzletitletoc>7.26 Registering a shutdown hook to stop the =
+logging=20
+service. (fragment) </P>
+<P class=3DChapTOC>Applying Thread Pools</P>
+<P class=3Dpuzzletitletoc>8.1 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/ThreadDeadlock.=
+java">Task=20
+that deadlocks in a single-threaded Executor.</A> <IMG height=3D20 =
+alt=3D(bad)=20
+src=3D"http://www.javaconcurrencyinpractice.com/images/mryuk.gif" =
+width=3D20> </P>
+<P class=3Dpuzzletitletoc>8.2 <A=20
+href=3D"http://java.sun.com/j2se/1.5.0/docs/api/java/util/concurrent/Thre=
+adPoolExecutor.html#ThreadPoolExecutor(int,%20int,%20long,%20java.util.co=
+ncurrent.TimeUnit,%20java.util.concurrent.BlockingQueue,%20java.util.conc=
+urrent.ThreadFactory,%20java.util.concurrent.RejectedExecutionHandler)">G=
+eneral=20
+constructor for ThreadPoolExecutor.</A> (external link to Javadoc) </P>
+<P class=3Dpuzzletitletoc>8.3 Creating a fixed-sized thread pool with a =
+bounded=20
+queue and the caller-runs saturation policy. (fragment) </P>
+<P class=3Dpuzzletitletoc>8.4 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/BoundedExecutor=
+.java">Using=20
+a Semaphore to throttle task submission.</A> </P>
+<P class=3Dpuzzletitletoc>8.5 <A=20
+href=3D"http://java.sun.com/j2se/1.5.0/docs/api/java/util/concurrent/Thre=
+adFactory.html#method_summary">ThreadFactory=20
+interface.</A> (external link to Javadoc) </P>
+<P class=3Dpuzzletitletoc>8.6 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/MyThreadFactory=
+.java">Custom=20
+thread factory.</A> </P>
+<P class=3Dpuzzletitletoc>8.7 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/MyAppThread.jav=
+a">Custom=20
+thread base class.</A> </P>
+<P class=3Dpuzzletitletoc>8.8 Modifying an Executor created with the =
+standard=20
+factories. (fragment) </P>
+<P class=3Dpuzzletitletoc>8.9 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/TimingThreadPoo=
+l.java">Thread=20
+pool extended with logging and timing.</A> </P>
+<P class=3Dpuzzletitletoc>8.10 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/TransformingSeq=
+uential.java">Transforming=20
+sequential execution into parallel execution.</A> </P>
+<P class=3Dpuzzletitletoc>8.11 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/TransformingSeq=
+uential.java">Transforming=20
+sequential tail-recursion into parallelized recursion.</A> </P>
+<P class=3Dpuzzletitletoc>8.12 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/TransformingSeq=
+uential.java">Waiting=20
+for results to be calculated in parallel.</A> </P>
+<P class=3Dpuzzletitletoc>8.13 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/Puzzle.java">Ab=
+straction=20
+for puzzles like the 'sliding blocks puzzle'.</A> </P>
+<P class=3Dpuzzletitletoc>8.14 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/PuzzleNode.java=
+">Link=20
+node for the puzzle solver framework.</A> </P>
+<P class=3Dpuzzletitletoc>8.15 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/SequentialPuzzl=
+eSolver.java">Sequential=20
+puzzle solver.</A> </P>
+<P class=3Dpuzzletitletoc>8.16 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/ConcurrentPuzzl=
+eSolver.java">Concurrent=20
+version of puzzle solver.</A> </P>
+<P class=3Dpuzzletitletoc>8.17 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/ValueLatch.java=
+">Result-bearing=20
+latch used by ConcurrentPuzzleSolver.</A> </P>
+<P class=3Dpuzzletitletoc>8.18 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/PuzzleSolver.ja=
+va">Solver=20
+that recognizes when no solution exists.</A> </P>
+<P class=3DChapTOC>GUI Applications</P>
+<P class=3Dpuzzletitletoc>9.1 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/SwingUtilities.=
+java">Implementing=20
+SwingUtilities using an Executor.</A> </P>
+<P class=3Dpuzzletitletoc>9.2 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/GuiExecutor.jav=
+a">Executor=20
+built atop SwingUtilities.</A> </P>
+<P class=3Dpuzzletitletoc>9.3 Simple event listener. (fragment) </P>
+<P class=3Dpuzzletitletoc>9.4 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/ListenerExample=
+s.java">Binding=20
+a long-running task to a visual component.</A> </P>
+<P class=3Dpuzzletitletoc>9.5 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/ListenerExample=
+s.java">Long-running=20
+task with user feedback.</A> </P>
+<P class=3Dpuzzletitletoc>9.6 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/ListenerExample=
+s.java">Cancelling=20
+a long-running task.</A> </P>
+<P class=3Dpuzzletitletoc>9.7 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/BackgroundTask.=
+java">Background=20
+task class supporting cancellation, completion notification, and =
+progress=20
+notification.</A> </P>
+<P class=3Dpuzzletitletoc>9.8 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/ListenerExample=
+s.java">Initiating=20
+a long-running, cancellable task with BackgroundTask.</A> </P>
+<P class=3DChapTOC>Avoiding Liveness Hazards</P>
+<P class=3Dpuzzletitletoc>10.1 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/LeftRightDeadlo=
+ck.java">Simple=20
+lock-ordering deadlock.</A> <IMG height=3D20 alt=3D(bad)=20
+src=3D"http://www.javaconcurrencyinpractice.com/images/mryuk.gif" =
+width=3D20> </P>
+<P class=3Dpuzzletitletoc>10.2 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/DynamicOrderDea=
+dlock.java">Dynamic=20
+lock-ordering deadlock.</A> <IMG height=3D20 alt=3D(bad)=20
+src=3D"http://www.javaconcurrencyinpractice.com/images/mryuk.gif" =
+width=3D20> </P>
+<P class=3Dpuzzletitletoc>10.3 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/InduceLockOrder=
+.java">Inducing=20
+a lock ordering to avoid deadlock.</A> </P>
+<P class=3Dpuzzletitletoc>10.4 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/DemonstrateDead=
+lock.java">Driver=20
+loop that induces deadlock under typical conditions.</A> </P>
+<P class=3Dpuzzletitletoc>10.5 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/CooperatingDead=
+lock.java">Lock-ordering=20
+deadlock between cooperating objects.</A> <IMG height=3D20 alt=3D(bad)=20
+src=3D"http://www.javaconcurrencyinpractice.com/images/mryuk.gif" =
+width=3D20> </P>
+<P class=3Dpuzzletitletoc>10.6 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/CooperatingNoDe=
+adlock.java">Using=20
+open calls to avoiding deadlock between cooperating objects.</A> </P>
+<P class=3Dpuzzletitletoc>10.7 Portion of thread dump after deadlock. =
+(not a code=20
+listing) </P>
+<P class=3DChapTOC>Performance and Scalability</P>
+<P class=3Dpuzzletitletoc>11.1 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/WorkerThread.ja=
+va">Serialized=20
+access to a task queue.</A> </P>
+<P class=3Dpuzzletitletoc>11.2 Synchronization that has no effect. <IMG =
+height=3D20=20
+alt=3D(bad) =
+src=3D"http://www.javaconcurrencyinpractice.com/images/mryuk.gif"=20
+width=3D20> (fragment) </P>
+<P class=3Dpuzzletitletoc>11.3 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/ThreeStooges.ja=
+va">Candidate=20
+for lock elision.</A> </P>
+<P class=3Dpuzzletitletoc>11.4 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/AttributeStore.=
+java">Holding=20
+a lock longer than necessary.</A> </P>
+<P class=3Dpuzzletitletoc>11.5 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/BetterAttribute=
+Store.java">Reducing=20
+lock duration.</A> </P>
+<P class=3Dpuzzletitletoc>11.6 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/ServerStatusBef=
+oreSplit.java">Candidate=20
+for lock splitting.</A> </P>
+<P class=3Dpuzzletitletoc>11.7 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/ServerStatusAft=
+erSplit.java">ServerStatus=20
+refactored to use split locks.</A> </P>
+<P class=3Dpuzzletitletoc>11.8 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/StripedMap.java=
+">Hash-based=20
+map using lock striping.</A> </P>
+<P class=3DChapTOC>Testing Concurrent Programs</P>
+<P class=3Dpuzzletitletoc>12.1 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/SemaphoreBounde=
+dBuffer.java">Bounded=20
+buffer using Semaphore.</A> </P>
+<P class=3Dpuzzletitletoc>12.2 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/TestBoundedBuff=
+er.java">Basic=20
+unit tests for BoundedBuffer.</A> </P>
+<P class=3Dpuzzletitletoc>12.3 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/TestBoundedBuff=
+er.java">Testing=20
+blocking and responsiveness to interruption.</A> </P>
+<P class=3Dpuzzletitletoc>12.4 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/XorShift.java">=
+Medium-quality=20
+random number generator suitable for testing.</A> </P>
+<P class=3Dpuzzletitletoc>12.5 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/PutTakeTest.jav=
+a">Producer-consumer=20
+test program for BoundedBuffer.</A> </P>
+<P class=3Dpuzzletitletoc>12.6 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/PutTakeTest.jav=
+a">Producer=20
+and consumer classes used in PutTakeTest.</A> </P>
+<P class=3Dpuzzletitletoc>12.7 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/TestBoundedBuff=
+er.java">Testing=20
+for resource leaks.</A> </P>
+<P class=3Dpuzzletitletoc>12.8 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/TestThreadPool.=
+java">Thread=20
+factory for testing ThreadPoolExecutor.</A> </P>
+<P class=3Dpuzzletitletoc>12.9 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/TestThreadPool.=
+java">Test=20
+method to verify thread pool expansion.</A> </P>
+<P class=3Dpuzzletitletoc>12.10 Using Thread.yield to generate more =
+interleavings.=20
+(fragment) </P>
+<P class=3Dpuzzletitletoc>12.11 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/BarrierTimer.ja=
+va">Barrier-based=20
+timer.</A> </P>
+<P class=3Dpuzzletitletoc>12.12 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/TimedPutTakeTes=
+t.java">Testing=20
+with a barrier-based timer.</A> </P>
+<P class=3Dpuzzletitletoc>12.13 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/TimedPutTakeTes=
+t.java">Driver=20
+program for TimedPutTakeTest.</A> </P>
+<P class=3DChapTOC>Explicit Locks</P>
+<P class=3Dpuzzletitletoc>13.1 <A=20
+href=3D"http://java.sun.com/j2se/1.5.0/docs/api/java/util/concurrent/lock=
+s/Lock.html#method_summary">Lock=20
+interface.</A> (external link to Javadoc) </P>
+<P class=3Dpuzzletitletoc>13.2 Guarding object state using =
+ReentrantLock.=20
+(fragment) </P>
+<P class=3Dpuzzletitletoc>13.3 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/DeadlockAvoidan=
+ce.java">Avoiding=20
+lock-ordering deadlock using try Lock.</A> </P>
+<P class=3Dpuzzletitletoc>13.4 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/TimedLocking.ja=
+va">Locking=20
+with a time budget.</A> </P>
+<P class=3Dpuzzletitletoc>13.5 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/InterruptibleLo=
+cking.java">Interruptible=20
+lock acquisition.</A> </P>
+<P class=3Dpuzzletitletoc>13.6 <A=20
+href=3D"http://java.sun.com/j2se/1.5.0/docs/api/java/util/concurrent/lock=
+s/ReadWriteLock.html#method_summary">ReadWriteLock=20
+interface.</A> (external link to Javadoc) </P>
+<P class=3Dpuzzletitletoc>13.7 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/ReadWriteMap.ja=
+va">Wrapping=20
+a Map with a read-write lock.</A> </P>
+<P class=3DChapTOC>Building Custom Synchronizers</P>
+<P class=3Dpuzzletitletoc>14.1 Structure of blocking state-dependent =
+actions.=20
+(fragment) </P>
+<P class=3Dpuzzletitletoc>14.2 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/BaseBoundedBuff=
+er.java">Base=20
+class for bounded buffer implementations.</A> </P>
+<P class=3Dpuzzletitletoc>14.3 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/GrumpyBoundedBu=
+ffer.java">Bounded=20
+buffer that balks when preconditions are not met.</A> </P>
+<P class=3Dpuzzletitletoc>14.4 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/GrumpyBoundedBu=
+ffer.java">Client=20
+logic for calling GrumpyBoundedBuffer.</A> </P>
+<P class=3Dpuzzletitletoc>14.5 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/SleepyBoundedBu=
+ffer.java">Bounded=20
+buffer using crude blocking.</A> </P>
+<P class=3Dpuzzletitletoc>14.6 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/BoundedBuffer.j=
+ava">Bounded=20
+buffer using condition queues.</A> </P>
+<P class=3Dpuzzletitletoc>14.7 Canonical form for state-dependent =
+methods.=20
+(fragment) </P>
+<P class=3Dpuzzletitletoc>14.8 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/BoundedBuffer.j=
+ava">Using=20
+conditional notification in BoundedBuffer.put.</A> </P>
+<P class=3Dpuzzletitletoc>14.9 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/ThreadGate.java=
+">Recloseable=20
+gate using wait and notifyAll.</A> </P>
+<P class=3Dpuzzletitletoc>14.10 <A=20
+href=3D"http://java.sun.com/j2se/1.5.0/docs/api/java/util/concurrent/lock=
+s/Condition.html#method_summary">Condition=20
+interface.</A> (external link to Javadoc) </P>
+<P class=3Dpuzzletitletoc>14.11 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/ConditionBounde=
+dBuffer.java">Bounded=20
+buffer using explicit condition variables.</A> </P>
+<P class=3Dpuzzletitletoc>14.12 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/SemaphoreOnLock=
+.java">Counting=20
+semaphore implemented using Lock.</A> </P>
+<P class=3Dpuzzletitletoc>14.13 Canonical forms for acquisition and =
+release in=20
+AQS. (fragment) </P>
+<P class=3Dpuzzletitletoc>14.14 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/OneShotLatch.ja=
+va">Binary=20
+latch using AbstractQueuedSynchronizer.</A> </P>
+<P class=3Dpuzzletitletoc>14.15 tryAcquire implementation from=20
+nonfairReentrantLock. (See JDK source) </P>
+<P class=3Dpuzzletitletoc>14.16 tryAcquireShared and tryReleaseShared =
+from=20
+Semaphore. (See JDK source) </P>
+<P class=3DChapTOC>Atomic Variables and Nonblocking Synchronization</P>
+<P class=3Dpuzzletitletoc>15.1 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/SimulatedCAS.ja=
+va">Simulated=20
+CAS operation.</A> </P>
+<P class=3Dpuzzletitletoc>15.2 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/CasCounter.java=
+">Nonblocking=20
+counter using CAS.</A> </P>
+<P class=3Dpuzzletitletoc>15.3 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/CasNumberRange.=
+java">Preserving=20
+multivariable invariants using CAS.</A> </P>
+<P class=3Dpuzzletitletoc>15.4 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/ReentrantLockPs=
+eudoRandom.java">Random=20
+number generator using ReentrantLock.</A> </P>
+<P class=3Dpuzzletitletoc>15.5 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/AtomicPseudoRan=
+dom.java">Random=20
+number generator using AtomicInteger.</A> </P>
+<P class=3Dpuzzletitletoc>15.6 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/ConcurrentStack=
+.java">Nonblocking=20
+stack using Treiber's algorithm.</A> </P>
+<P class=3Dpuzzletitletoc>15.7 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/LinkedQueue.jav=
+a">Insertion=20
+in the Michael-Scott nonblocking queue algorithm.</A> </P>
+<P class=3Dpuzzletitletoc>15.8 Using atomic field updaters in=20
+ConcurrentLinkedQueue. (fragment) </P>
+<P class=3DChapTOC>The Java Memory Model</P>
+<P class=3Dpuzzletitletoc>16.1 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/PossibleReorder=
+ing.java">Insufficiently=20
+synchronized program that can have surprising results.</A> <IMG =
+height=3D20=20
+alt=3D(bad) =
+src=3D"http://www.javaconcurrencyinpractice.com/images/mryuk.gif"=20
+width=3D20> </P>
+<P class=3Dpuzzletitletoc>16.2 Inner class of FutureTask illustrating=20
+synchronization piggybacking. (See JDK source) </P>
+<P class=3Dpuzzletitletoc>16.3 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/UnsafeLazyIniti=
+alization.java">Unsafe=20
+lazy initialization.</A> <IMG height=3D20 alt=3D(bad)=20
+src=3D"http://www.javaconcurrencyinpractice.com/images/mryuk.gif" =
+width=3D20> </P>
+<P class=3Dpuzzletitletoc>16.4 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/SafeLazyInitial=
+ization.java">Thread-safe=20
+lazy initialization.</A> </P>
+<P class=3Dpuzzletitletoc>16.5 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/EagerInitializa=
+tion.java">Eager=20
+initialization.</A> </P>
+<P class=3Dpuzzletitletoc>16.6 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/ResourceFactory=
+.java">Lazy=20
+initialization holder class idiom.</A> </P>
+<P class=3Dpuzzletitletoc>16.7 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/DoubleCheckedLo=
+cking.java">Double-checked-locking=20
+antipattern.</A> <IMG height=3D20 alt=3D(bad)=20
+src=3D"http://www.javaconcurrencyinpractice.com/images/mryuk.gif" =
+width=3D20> </P>
+<P class=3Dpuzzletitletoc>16.8 <A=20
+href=3D"http://www.javaconcurrencyinpractice.com/listings/SafeStates.java=
+">Initialization=20
+safety for immutable objects.</A> </P></BODY></HTML>
+
+------=_NextPart_000_0000_01CDB819.2C97EE20
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-Location: http://www.javaconcurrencyinpractice.com/images/mryuk.gif
+
+R0lGODlhFAAUAOYAAIqMjoqMj/f3+PHx8vX19vDw8fT19fLy88fJy6iqrH+BhMXHya+xtMnKzO7v
+74aIi42Pkebn6KyusKmrrjg2OJ2gouvs7JmbntDS03l6fcvNz4OFiImLjkFBQrG0toiKjZeZm6ir
+rYyOkaeprPP09Gtsb4eJi2doa5SWmcPFx6WoqrK0t8TFyKqsr6Gjpbe5vLa4umxucDk4Odzd3tvc
+3YGDhe3t7ru8v/Pz80hISn6Agp2foWxtcF5fYVdYWmBhZKaoq1RUVoiJjHx+gbCytK2vssbIymlq
+bJaYm0RERt3f4MXGyMLExlhZW+fo6WVmaIWHiicjJJCSlOTl5s/R09/g4XFzdTIwMejp6mBhY5WX
+munq662vseLj5JeZnJKUl31/grW3uXx+gIKEh8jKy7Gztezs7e/w8MHDxerr7Ghpa87P0YCChGlr
+bSglJsrLzV1eYNna2yooKc/Q0vb29/r6+/j4+fn5+vz8/P39/f///wAAAAAAAAAAAAAAAAAAACH5
+BAAAAAAALAAAAAAUABQAAAf/gHp6eXp2BQkAHCBSEAATZoJ6d4IkenhFOnMDlpIHC2wJhIKTAgEM
+egajhYIHYQB2nHQADXdHVlh0erlOPCd4CBuiDAx5OD9RFC+CNxRuMZswE3oDCgKCeAttckxGVyUa
+eXV4AgoFEmirehgZYhEzJxkWhIQNIR911wsdPWp3Uz5NgtCQpOdAInyCqmC4Y0MPgVwICgiCFQAE
+oTvW8Kiqk0oQvjxakKTzeEcUAT0IT6IIMBGWNUF0NA5CWEfEhzuwdOlJs0JBjTJKclki9EACGT2V
+8IxIUkIEhCcyXIQTxILLGTC5HLjIAUfFGw0qsnQYYqnOGAd6WqygEwFKlwJeSdZQuTBgC4A4eTyM
+iGQCAac8FS7sqAALVgMTgggJEOIhkh4WS+bhIRLgJEFBQDakGCATVYoHCRJPWpXHQYsAEL6sfBDC
+wqBIgQAAOw==
+
+------=_NextPart_000_0000_01CDB819.2C97EE20
+Content-Type: text/css;
+	charset="gb2312"
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://www.javaconcurrencyinpractice.com/jcip.css
+
+BODY {
+	BORDER-TOP-WIDTH: 0px; FONT-WEIGHT: normal; BORDER-LEFT-WIDTH: 0px; =
+FONT-SIZE: 12px; BORDER-BOTTOM-WIDTH: 0px; TEXT-TRANSFORM: none; COLOR: =
+black; TEXT-INDENT: 0em; FONT-STYLE: normal; FONT-FAMILY: Arial, =
+Helvetica, sans-serif; BACKGROUND-COLOR: #ffffff; TEXT-ALIGN: left; =
+BORDER-RIGHT-WIDTH: 0px; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+TABLE {
+	BORDER-TOP-WIDTH: 0px; MARGIN-TOP: 0px; PADDING-LEFT: 5px; =
+BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; MARGIN-BOTTOM: 10px; =
+PADDING-BOTTOM: 5px; MARGIN-LEFT: 0px; WIDTH: 100%; PADDING-TOP: 0px; =
+FONT-FAMILY: Arial, Helvetica, sans-serif; BACKGROUND-COLOR: #ffffff; =
+BORDER-RIGHT-WIDTH: 0px
+}
+TD {
+	BORDER-TOP-WIDTH: 0px; PADDING-RIGHT: 10px; PADDING-LEFT: 10px; =
+BORDER-LEFT-WIDTH: 0px; FONT-SIZE: 12px; BORDER-BOTTOM-WIDTH: 0px; =
+PADDING-BOTTOM: 7px; VERTICAL-ALIGN: top; PADDING-TOP: 7px; FONT-FAMILY: =
+Arial, Helvetica, sans-serif; BORDER-RIGHT-WIDTH: 0px
+}
+.Border {
+	COLOR: white; BACKGROUND-COLOR: #d71827
+}
+.CopyrightCell {
+	FONT-SIZE: 9px; VERTICAL-ALIGN: bottom; FONT-FAMILY: Arial, Helvetica, =
+sans-serif; TEXT-ALIGN: left
+}
+.GoRight {
+	TEXT-ALIGN: right
+}
+.GoLeft {
+	TEXT-ALIGN: left
+}
+.PageTitle {
+	FONT-WEIGHT: bold; FONT-SIZE: 45px; MARGIN-BOTTOM: 5px; MARGIN-LEFT: =
+0em; TEXT-TRANSFORM: none; COLOR: #00588a; TEXT-INDENT: 0em; =
+MARGIN-RIGHT: 0em; FONT-STYLE: normal; FONT-FAMILY: Arial, Verdana, =
+Helvetica, sans-serif; TEXT-ALIGN: left; FONT-VARIANT: normal; =
+TEXT-DECORATION: none
+}
+.PageSubtitle {
+	FONT-WEIGHT: bold; FONT-SIZE: 26px; MARGIN: 2px 0em 35px; =
+TEXT-TRANSFORM: none; COLOR: #00588a; TEXT-INDENT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; TEXT-ALIGN: =
+left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.InternalHead {
+	FONT-WEIGHT: normal; FONT-SIZE: 18px; MARGIN-LEFT: 0em; TEXT-TRANSFORM: =
+none; COLOR: #00588a; TEXT-INDENT: 0em; MARGIN-RIGHT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; TEXT-ALIGN: =
+left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.Intro {
+	MARGIN-TOP: 5em
+}
+.PuzzlersHr {
+	MARGIN-TOP: 2.5em; COLOR: #00588a; BACKGROUND-COLOR: #00588a
+}
+.ChapTOC {
+	FONT-WEIGHT: bold; FONT-SIZE: 16px; MARGIN: 0.6em 0px 0.6em 2.5em; =
+COLOR: #00588a; FONT-FAMILY: arial, verdana, helvetica, sans-serif
+}
+.PuzzleTitleTOC {
+	FONT-WEIGHT: normal; FONT-SIZE: 15px; MARGIN: 0.35em 0em 0px 5em; =
+TEXT-TRANSFORM: none; COLOR: black; TEXT-INDENT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; TEXT-ALIGN: =
+left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.ErrataLocation {
+	MARGIN-TOP: 0px
+}
+.ErrataDescription {
+	MARGIN-LEFT: 39px
+}
+.ErrataSolution {
+	FONT-WEIGHT: bold; MARGIN-LEFT: 39px
+}
+.ErrataSolutionCode {
+	FONT-WEIGHT: bold; MARGIN-LEFT: 39px; FONT-FAMILY: courier, =
+fixed-width; WHITE-SPACE: pre
+}
+.Quote {
+	MARGIN-TOP: 20px; FONT-WEIGHT: bold
+}
+.Author {
+	MARGIN-LEFT: 39px
+}
+-------------------------------------------------------------------- =
+.Head1 {
+	FONT-WEIGHT: bold; FONT-SIZE: 20px; MARGIN-LEFT: 0em; TEXT-TRANSFORM: =
+none; COLOR: #3e647e; TEXT-INDENT: 0em; MARGIN-RIGHT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; TEXT-ALIGN: =
+left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.Head1A {
+	FONT-WEIGHT: bold; FONT-SIZE: 20px; MARGIN-LEFT: 0em; TEXT-TRANSFORM: =
+none; COLOR: #3e647e; TEXT-INDENT: 0em; MARGIN-RIGHT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; TEXT-ALIGN: =
+left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.Head1CSR {
+	FONT-WEIGHT: bold; FONT-SIZE: 20px; MARGIN-LEFT: 0em; TEXT-TRANSFORM: =
+none; COLOR: #3e647e; TEXT-INDENT: 0em; MARGIN-RIGHT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; TEXT-ALIGN: =
+left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.Head1G {
+	FONT-WEIGHT: bold; FONT-SIZE: 20px; MARGIN-LEFT: 0em; TEXT-TRANSFORM: =
+none; COLOR: #3e647e; TEXT-INDENT: 0em; MARGIN-RIGHT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; TEXT-ALIGN: =
+left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.Head1P {
+	FONT-WEIGHT: bold; FONT-SIZE: 20px; MARGIN-LEFT: 0em; TEXT-TRANSFORM: =
+none; COLOR: #3e647e; TEXT-INDENT: 0em; MARGIN-RIGHT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; TEXT-ALIGN: =
+left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.Head2 {
+	FONT-WEIGHT: normal; FONT-SIZE: 18px; MARGIN-LEFT: 0em; TEXT-TRANSFORM: =
+none; COLOR: #3e647e; TEXT-INDENT: 0em; MARGIN-RIGHT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; TEXT-ALIGN: =
+left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.Head2A {
+	FONT-WEIGHT: normal; FONT-SIZE: 18px; MARGIN-LEFT: 0em; TEXT-TRANSFORM: =
+none; COLOR: #3e647e; TEXT-INDENT: 0em; MARGIN-RIGHT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; TEXT-ALIGN: =
+left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.Head2CSR {
+	FONT-WEIGHT: normal; FONT-SIZE: 18px; MARGIN-LEFT: 0em; TEXT-TRANSFORM: =
+none; COLOR: #3e647e; TEXT-INDENT: 0em; MARGIN-RIGHT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; TEXT-ALIGN: =
+left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.Head2G {
+	FONT-WEIGHT: normal; FONT-SIZE: 18px; MARGIN-LEFT: 0em; TEXT-TRANSFORM: =
+none; COLOR: #3e647e; TEXT-INDENT: 0em; MARGIN-RIGHT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; TEXT-ALIGN: =
+left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.Head2P {
+	FONT-WEIGHT: normal; FONT-SIZE: 18px; MARGIN-LEFT: 0em; TEXT-TRANSFORM: =
+none; COLOR: #3e647e; TEXT-INDENT: 0em; MARGIN-RIGHT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; TEXT-ALIGN: =
+left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.Head2-Procedure {
+	FONT-WEIGHT: normal; FONT-SIZE: 18px; MARGIN-LEFT: 0em; TEXT-TRANSFORM: =
+none; COLOR: #3e647e; TEXT-INDENT: 0em; MARGIN-RIGHT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; TEXT-ALIGN: =
+left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.Head2ProcTitle {
+	FONT-WEIGHT: normal; FONT-SIZE: 18px; MARGIN-LEFT: 0em; TEXT-TRANSFORM: =
+none; COLOR: #3e647e; TEXT-INDENT: 0em; MARGIN-RIGHT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; TEXT-ALIGN: =
+left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.Head2-OptFlag {
+	FONT-WEIGHT: normal; FONT-SIZE: 18px; MARGIN-LEFT: 0em; TEXT-TRANSFORM: =
+none; COLOR: #3e647e; TEXT-INDENT: 0em; MARGIN-RIGHT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; TEXT-ALIGN: =
+left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.Head3 {
+	FONT-WEIGHT: bold; FONT-SIZE: 14px; MARGIN-LEFT: 0em; TEXT-TRANSFORM: =
+none; COLOR: #3e647e; TEXT-INDENT: 0em; MARGIN-RIGHT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; TEXT-ALIGN: =
+left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.Head3A {
+	FONT-WEIGHT: bold; FONT-SIZE: 14px; MARGIN-LEFT: 0em; TEXT-TRANSFORM: =
+none; COLOR: #3e647e; TEXT-INDENT: 0em; MARGIN-RIGHT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; TEXT-ALIGN: =
+left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.Head3CSR {
+	FONT-WEIGHT: bold; FONT-SIZE: 14px; MARGIN-LEFT: 0em; TEXT-TRANSFORM: =
+none; COLOR: #3e647e; TEXT-INDENT: 0em; MARGIN-RIGHT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; TEXT-ALIGN: =
+left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.Head3G {
+	FONT-WEIGHT: bold; FONT-SIZE: 14px; MARGIN-LEFT: 0em; TEXT-TRANSFORM: =
+none; COLOR: #3e647e; TEXT-INDENT: 0em; MARGIN-RIGHT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; TEXT-ALIGN: =
+left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.Head3P {
+	FONT-WEIGHT: bold; FONT-SIZE: 14px; MARGIN-LEFT: 0em; TEXT-TRANSFORM: =
+none; COLOR: #3e647e; TEXT-INDENT: 0em; MARGIN-RIGHT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; TEXT-ALIGN: =
+left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.Head3-Procedure {
+	FONT-WEIGHT: bold; FONT-SIZE: 14px; MARGIN-LEFT: 0em; TEXT-TRANSFORM: =
+none; COLOR: #3e647e; TEXT-INDENT: 0em; MARGIN-RIGHT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; TEXT-ALIGN: =
+left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.Head3ProcTitle {
+	FONT-WEIGHT: bold; FONT-SIZE: 14px; MARGIN-LEFT: 0em; TEXT-TRANSFORM: =
+none; COLOR: #3e647e; TEXT-INDENT: 0em; MARGIN-RIGHT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; TEXT-ALIGN: =
+left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.Head3-OptCat {
+	FONT-WEIGHT: bold; FONT-SIZE: 14px; MARGIN-LEFT: 0em; TEXT-TRANSFORM: =
+none; COLOR: #3e647e; TEXT-INDENT: 0em; MARGIN-RIGHT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; TEXT-ALIGN: =
+left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.Head4 {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px; MARGIN-LEFT: 0em; TEXT-TRANSFORM: =
+none; COLOR: #3e647e; TEXT-INDENT: 0em; MARGIN-RIGHT: 0em; FONT-STYLE: =
+italic; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; TEXT-ALIGN: =
+left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+TH {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 10px; BORDER-LEFT-WIDTH: 0px; =
+FONT-SIZE: 12px; BORDER-BOTTOM-WIDTH: 0px; PADDING-BOTTOM: 5px; =
+VERTICAL-ALIGN: bottom; PADDING-TOP: 5px; FONT-FAMILY: Arial, Helvetica, =
+sans-serif; TEXT-ALIGN: left; BORDER-RIGHT-WIDTH: 0px
+}
+TD {
+	BORDER-TOP-WIDTH: 0px; PADDING-RIGHT: 10px; PADDING-LEFT: 10px; =
+BORDER-LEFT-WIDTH: 0px; FONT-SIZE: 12px; BORDER-BOTTOM-WIDTH: 0px; =
+PADDING-BOTTOM: 7px; VERTICAL-ALIGN: top; PADDING-TOP: 7px; FONT-FAMILY: =
+Arial, Helvetica, sans-serif; BORDER-RIGHT-WIDTH: 0px
+}
+TD P {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 10px; BORDER-LEFT-WIDTH: 0px; =
+FONT-SIZE: 12px; BORDER-BOTTOM-WIDTH: 0px; VERTICAL-ALIGN: top; =
+FONT-FAMILY: Arial, Helvetica, sans-serif; BORDER-RIGHT-WIDTH: 0px
+}
+TD H1 {
+	TEXT-ALIGN: left
+}
+TD H2 {
+	PADDING-TOP: 0px; TEXT-ALIGN: left
+}
+TD H3 {
+	PADDING-TOP: 0px; TEXT-ALIGN: left
+}
+TD H4 {
+	PADDING-TOP: 0px; TEXT-ALIGN: left
+}
+TABLE.Code {
+	BORDER-RIGHT: 0px; BORDER-TOP: 0px; MARGIN-TOP: 0.5em; MARGIN-BOTTOM: =
+0.5em; BORDER-LEFT: 0px; BORDER-BOTTOM: 0px
+}
+TABLE.Screen {
+	BORDER-RIGHT: #3e647e 1px solid; BORDER-TOP: #3e647e 1px solid; =
+MARGIN-TOP: 0.5em; MARGIN-BOTTOM: 0.5em; BORDER-LEFT: #3e647e 1px solid; =
+BORDER-BOTTOM: #3e647e 1px solid
+}
+.Untitled {
+	MARGIN-TOP: 1em; MARGIN-BOTTOM: 1em
+}
+.NoBorder {
+	MARGIN-TOP: 1em; MARGIN-BOTTOM: 1em; LINE-HEIGHT: 2pt
+}
+CAPTION.TableCaption {
+	FONT-WEIGHT: normal; FONT-SIZE: 12px; MARGIN-LEFT: 0em; TEXT-TRANSFORM: =
+none; COLOR: black; TEXT-INDENT: 0em; MARGIN-RIGHT: 0em; FONT-STYLE: =
+italic; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; TEXT-ALIGN: =
+left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+CAPTION.TableCaption-Wide {
+	FONT-WEIGHT: normal; FONT-SIZE: 12px; MARGIN-LEFT: 0em; TEXT-TRANSFORM: =
+none; COLOR: black; TEXT-INDENT: 0em; MARGIN-RIGHT: 0em; FONT-STYLE: =
+italic; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; TEXT-ALIGN: =
+left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+CAPTION.TableCaptionA-Wide {
+	FONT-WEIGHT: normal; FONT-SIZE: 12px; MARGIN-LEFT: 0em; TEXT-TRANSFORM: =
+none; COLOR: black; TEXT-INDENT: 0em; MARGIN-RIGHT: 0em; FONT-STYLE: =
+italic; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; TEXT-ALIGN: =
+left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+CAPTION.TableCaptionG {
+	FONT-WEIGHT: normal; FONT-SIZE: 12px; MARGIN-LEFT: 0em; TEXT-TRANSFORM: =
+none; COLOR: black; TEXT-INDENT: 0em; MARGIN-RIGHT: 0em; FONT-STYLE: =
+italic; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; TEXT-ALIGN: =
+left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+CAPTION.TableCaptionG-Wide {
+	FONT-WEIGHT: normal; FONT-SIZE: 12px; MARGIN-LEFT: 0em; TEXT-TRANSFORM: =
+none; COLOR: black; TEXT-INDENT: 0em; MARGIN-RIGHT: 0em; FONT-STYLE: =
+italic; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; TEXT-ALIGN: =
+left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+CAPTION.TableCaptionP-Wide {
+	FONT-WEIGHT: normal; FONT-SIZE: 12px; MARGIN-LEFT: 0em; TEXT-TRANSFORM: =
+none; COLOR: black; TEXT-INDENT: 0em; MARGIN-RIGHT: 0em; FONT-STYLE: =
+italic; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; TEXT-ALIGN: =
+left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+CAPTION.TableCaptionP {
+	FONT-WEIGHT: normal; FONT-SIZE: 12px; MARGIN-LEFT: 0em; TEXT-TRANSFORM: =
+none; COLOR: black; TEXT-INDENT: 0em; MARGIN-RIGHT: 0em; FONT-STYLE: =
+italic; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; TEXT-ALIGN: =
+left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+CAPTION.TableCaptionP-Wide {
+	FONT-WEIGHT: normal; FONT-SIZE: 12px; MARGIN-LEFT: 0em; TEXT-TRANSFORM: =
+none; COLOR: black; TEXT-INDENT: 0em; MARGIN-RIGHT: 0em; FONT-STYLE: =
+italic; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; TEXT-ALIGN: =
+left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+CAPTION.TableCaptionA {
+	FONT-WEIGHT: normal; FONT-SIZE: 12px; MARGIN-LEFT: 0em; TEXT-TRANSFORM: =
+none; COLOR: black; TEXT-INDENT: 0em; MARGIN-RIGHT: 0em; FONT-STYLE: =
+italic; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; TEXT-ALIGN: =
+left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.TableCaption {
+	MARGIN-TOP: 1.5em; MARGIN-BOTTOM: 0.5em; TEXT-ALIGN: left
+}
+.TableCaptionA {
+	MARGIN-TOP: 1.5em; MARGIN-BOTTOM: 0.5em; TEXT-ALIGN: left
+}
+.TableCaptionP {
+	MARGIN-TOP: 1.5em; MARGIN-BOTTOM: 0.5em; TEXT-ALIGN: left
+}
+.TableCaptionG {
+	MARGIN-TOP: 1.5em; MARGIN-BOTTOM: 0.5em; TEXT-ALIGN: left
+}
+.TableCaption-Wide {
+	MARGIN-TOP: 1.5em; MARGIN-BOTTOM: 0.5em; TEXT-ALIGN: left
+}
+.TableCaptionA-Wide {
+	MARGIN-TOP: 1.5em; MARGIN-BOTTOM: 0.5em; TEXT-ALIGN: left
+}
+.TableCaptionP-Wide {
+	MARGIN-TOP: 1.5em; MARGIN-BOTTOM: 0.5em; TEXT-ALIGN: left
+}
+.CodeCaption {
+	FONT-WEIGHT: normal; FONT-SIZE: 12px; MARGIN-LEFT: 0em; TEXT-TRANSFORM: =
+none; COLOR: black; TEXT-INDENT: 0em; MARGIN-RIGHT: 0em; FONT-STYLE: =
+italic; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; WHITE-SPACE: =
+pre; TEXT-ALIGN: left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.CodeCaption-Wide {
+	FONT-WEIGHT: normal; FONT-SIZE: 12px; MARGIN-LEFT: 0em; TEXT-TRANSFORM: =
+none; COLOR: black; TEXT-INDENT: 0em; MARGIN-RIGHT: 0em; FONT-STYLE: =
+italic; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; WHITE-SPACE: =
+pre; TEXT-ALIGN: left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.CodeCaptionA {
+	FONT-WEIGHT: normal; FONT-SIZE: 12px; MARGIN-LEFT: 0em; TEXT-TRANSFORM: =
+none; COLOR: black; TEXT-INDENT: 0em; MARGIN-RIGHT: 0em; FONT-STYLE: =
+italic; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; WHITE-SPACE: =
+pre; TEXT-ALIGN: left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.CodeCaptionG {
+	FONT-WEIGHT: normal; FONT-SIZE: 12px; MARGIN-LEFT: 0em; TEXT-TRANSFORM: =
+none; COLOR: black; TEXT-INDENT: 0em; MARGIN-RIGHT: 0em; FONT-STYLE: =
+italic; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; WHITE-SPACE: =
+pre; TEXT-ALIGN: left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.CodeCaptionG-Wide {
+	FONT-WEIGHT: normal; FONT-SIZE: 12px; MARGIN-LEFT: 0em; TEXT-TRANSFORM: =
+none; COLOR: black; TEXT-INDENT: 0em; MARGIN-RIGHT: 0em; FONT-STYLE: =
+italic; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; WHITE-SPACE: =
+pre; TEXT-ALIGN: left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.CodeCaptionP {
+	FONT-WEIGHT: normal; FONT-SIZE: 12px; MARGIN-LEFT: 0em; TEXT-TRANSFORM: =
+none; COLOR: black; TEXT-INDENT: 0em; MARGIN-RIGHT: 0em; FONT-STYLE: =
+italic; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; WHITE-SPACE: =
+pre; TEXT-ALIGN: left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.CodeCaptionA-Wide {
+	FONT-WEIGHT: normal; FONT-SIZE: 12px; MARGIN-LEFT: 0em; TEXT-TRANSFORM: =
+none; COLOR: black; TEXT-INDENT: 0em; MARGIN-RIGHT: 0em; FONT-STYLE: =
+italic; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; WHITE-SPACE: =
+pre; TEXT-ALIGN: left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.CodeCaptionP-Wide {
+	FONT-WEIGHT: normal; FONT-SIZE: 12px; MARGIN-LEFT: 0em; TEXT-TRANSFORM: =
+none; COLOR: black; TEXT-INDENT: 0em; MARGIN-RIGHT: 0em; FONT-STYLE: =
+italic; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; WHITE-SPACE: =
+pre; TEXT-ALIGN: left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.FigureBox {
+	FONT-WEIGHT: bold; FONT-STYLE: normal; FONT-FAMILY: arial, helvetica, =
+sans-serif; WHITE-SPACE: pre
+}
+.FigureBox-Wide {
+	FONT-WEIGHT: bold; FONT-STYLE: normal; FONT-FAMILY: arial, helvetica, =
+sans-serif; WHITE-SPACE: pre
+}
+KBD.UserInput {
+	FONT-WEIGHT: bold; FONT-STYLE: normal; FONT-FAMILY: courier; =
+WHITE-SPACE: pre
+}
+KBD.UserType {
+	FONT-WEIGHT: bold; FONT-STYLE: normal; FONT-FAMILY: courier; =
+WHITE-SPACE: pre
+}
+KBD.Filename-Command {
+	FONT-WEIGHT: normal; FONT-STYLE: normal; FONT-FAMILY: courier; =
+WHITE-SPACE: pre
+}
+KBD.url {
+	FONT-WEIGHT: normal; FONT-STYLE: normal; FONT-FAMILY: courier; =
+WHITE-SPACE: pre
+}
+I.Variable {
+	FONT-WEIGHT: normal; FONT-STYLE: italic; FONT-FAMILY: Times
+}
+I.EquationVariables {
+	FONT-WEIGHT: normal; FONT-STYLE: italic; FONT-FAMILY: Times
+}
+I.Title {
+	FONT-WEIGHT: normal; FONT-STYLE: italic
+}
+I.Strong {
+	FONT-WEIGHT: bold; FONT-STYLE: normal
+}
+.ErrorTxt {
+	MARGIN-LEFT: 36pt
+}
+.ErrorMsg {
+	MARGIN-TOP: 2.5em; FONT-SIZE: 112%; FONT-FAMILY: courier; WHITE-SPACE: =
+pre
+}
+B.TipNote {
+	FONT-WEIGHT: bold; FONT-SIZE: 115%; FONT-STYLE: normal; FONT-FAMILY: =
+helvetica, sans-serif
+}
+PRE.ScreenText {
+	LINE-HEIGHT: 16px; FONT-FAMILY: courier; WHITE-SPACE: pre
+}
+PRE.Codeline {
+	MARGIN-LEFT: 35px; LINE-HEIGHT: 16px; FONT-FAMILY: courier; =
+WHITE-SPACE: pre
+}
+.Step1 {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px; MARGIN-LEFT: 22px; TEXT-TRANSFORM: =
+none; COLOR: black; TEXT-INDENT: 0em; MARGIN-RIGHT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; TEXT-ALIGN: =
+left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.Step1- {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px; MARGIN-LEFT: 22px; TEXT-TRANSFORM: =
+none; COLOR: black; TEXT-INDENT: 0em; MARGIN-RIGHT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; TEXT-ALIGN: =
+left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.StepSingle {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px; MARGIN-LEFT: 22px; TEXT-TRANSFORM: =
+none; COLOR: black; TEXT-INDENT: 0em; MARGIN-RIGHT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; TEXT-ALIGN: =
+left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.Step2 {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px; MARGIN-LEFT: 65px; TEXT-TRANSFORM: =
+none; COLOR: black; TEXT-INDENT: 0em; MARGIN-RIGHT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; TEXT-ALIGN: =
+left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.Step2- {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px; MARGIN-LEFT: 65px; TEXT-TRANSFORM: =
+none; COLOR: black; TEXT-INDENT: 0em; MARGIN-RIGHT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; TEXT-ALIGN: =
+left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.Step3 .Step3- {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px; MARGIN-LEFT: 115px; TEXT-TRANSFORM: =
+none; COLOR: black; TEXT-INDENT: 0em; MARGIN-RIGHT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; TEXT-ALIGN: =
+left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.StepPara1 {
+	FONT-WEIGHT: normal; MARGIN-LEFT: 38px
+}
+.StepPara2 {
+	FONT-WEIGHT: normal; MARGIN-LEFT: 80px
+}
+.StepPara3 {
+	FONT-WEIGHT: normal; MARGIN-LEFT: 125px
+}
+.List1 {
+	FONT-WEIGHT: normal; FONT-SIZE: 12px; MARGIN-LEFT: 22px; =
+TEXT-TRANSFORM: none; COLOR: black; TEXT-INDENT: 0em; MARGIN-RIGHT: 0em; =
+FONT-STYLE: normal; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; =
+TEXT-ALIGN: left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.List1- {
+	FONT-WEIGHT: normal; FONT-SIZE: 12px; MARGIN-LEFT: 22px; =
+TEXT-TRANSFORM: none; COLOR: black; TEXT-INDENT: 0em; MARGIN-RIGHT: 0em; =
+FONT-STYLE: normal; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; =
+TEXT-ALIGN: left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.List2 {
+	FONT-WEIGHT: normal; FONT-SIZE: 12px; MARGIN-LEFT: 65px; =
+TEXT-TRANSFORM: none; COLOR: black; TEXT-INDENT: 0em; MARGIN-RIGHT: 0em; =
+FONT-STYLE: normal; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; =
+TEXT-ALIGN: left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.List2- {
+	FONT-WEIGHT: normal; FONT-SIZE: 12px; MARGIN-LEFT: 65px; =
+TEXT-TRANSFORM: none; COLOR: black; TEXT-INDENT: 0em; MARGIN-RIGHT: 0em; =
+FONT-STYLE: normal; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; =
+TEXT-ALIGN: left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.List3 {
+	FONT-WEIGHT: normal; FONT-SIZE: 12px; MARGIN-LEFT: 115px; =
+TEXT-TRANSFORM: none; COLOR: black; TEXT-INDENT: 0em; MARGIN-RIGHT: 0em; =
+FONT-STYLE: normal; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; =
+TEXT-ALIGN: left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.List3- {
+	FONT-WEIGHT: normal; FONT-SIZE: 12px; MARGIN-LEFT: 112px; =
+TEXT-TRANSFORM: none; COLOR: black; TEXT-INDENT: 0em; MARGIN-RIGHT: 0em; =
+FONT-STYLE: normal; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; =
+TEXT-ALIGN: left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.ParaIndent2 {
+	MARGIN-LEFT: 80px
+}
+.ParaIndent3 {
+	MARGIN-LEFT: 127px
+}
+.PartTitleTOC {
+	FONT-WEIGHT: bold; FONT-SIZE: 16px; MARGIN: 1.25em 0em 0em 2em; =
+FONT-STYLE: normal; FONT-FAMILY: arial, helvetica, sans-serif
+}
+.Head1TOC {
+	FONT-WEIGHT: normal; FONT-SIZE: 15px; MARGIN-LEFT: 5em; TEXT-TRANSFORM: =
+none; COLOR: black; TEXT-INDENT: 0em; MARGIN-RIGHT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; TEXT-ALIGN: =
+left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.Head1ATOC {
+	FONT-WEIGHT: normal; FONT-SIZE: 15px; MARGIN-LEFT: 5em; TEXT-TRANSFORM: =
+none; COLOR: black; TEXT-INDENT: 0em; MARGIN-RIGHT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; TEXT-ALIGN: =
+left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.Head1PTOC {
+	FONT-WEIGHT: normal; FONT-SIZE: 15px; MARGIN-LEFT: 5em; TEXT-TRANSFORM: =
+none; COLOR: black; TEXT-INDENT: 0em; MARGIN-RIGHT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; TEXT-ALIGN: =
+left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.Head1CSRTOC {
+	FONT-WEIGHT: normal; FONT-SIZE: 15px; MARGIN-LEFT: 5em; TEXT-TRANSFORM: =
+none; COLOR: black; TEXT-INDENT: 0em; MARGIN-RIGHT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; TEXT-ALIGN: =
+left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.Head1GTOC {
+	FONT-WEIGHT: normal; FONT-SIZE: 15px; MARGIN-LEFT: 5em; TEXT-TRANSFORM: =
+none; COLOR: black; TEXT-INDENT: 0em; MARGIN-RIGHT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; TEXT-ALIGN: =
+left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.Head2TOC {
+	FONT-WEIGHT: normal; FONT-SIZE: 14px; MARGIN-LEFT: 7.5em; MARGIN-RIGHT: =
+0em; FONT-STYLE: normal; FONT-FAMILY: arial, helvetica, sans-serif
+}
+.Head2ATOC {
+	FONT-WEIGHT: normal; FONT-SIZE: 14px; MARGIN-LEFT: 7.5em; MARGIN-RIGHT: =
+0em; FONT-STYLE: normal; FONT-FAMILY: arial, helvetica, sans-serif
+}
+.Head2-ProcedureTOC {
+	FONT-WEIGHT: normal; FONT-SIZE: 14px; MARGIN-LEFT: 7.5em; MARGIN-RIGHT: =
+0em; FONT-STYLE: normal; FONT-FAMILY: arial, helvetica, sans-serif
+}
+.Head2-OptCatTOC {
+	FONT-WEIGHT: normal; FONT-SIZE: 14px; MARGIN-LEFT: 7.5em; MARGIN-RIGHT: =
+0em; FONT-STYLE: normal; FONT-FAMILY: arial, helvetica, sans-serif
+}
+.Head2-OptFlagTOC {
+	FONT-WEIGHT: normal; FONT-SIZE: 14px; MARGIN-LEFT: 7.5em; MARGIN-RIGHT: =
+0em; FONT-STYLE: normal; FONT-FAMILY: arial, helvetica, sans-serif
+}
+.Head2CRSTOC {
+	FONT-WEIGHT: normal; FONT-SIZE: 14px; MARGIN-LEFT: 7.5em; MARGIN-RIGHT: =
+0em; FONT-STYLE: normal; FONT-FAMILY: arial, helvetica, sans-serif
+}
+.Head2PTOC {
+	FONT-WEIGHT: normal; FONT-SIZE: 14px; MARGIN-LEFT: 7.5em; MARGIN-RIGHT: =
+0em; FONT-STYLE: normal; FONT-FAMILY: arial, helvetica, sans-serif
+}
+.Head3TOC {
+	FONT-WEIGHT: normal; FONT-SIZE: 13px; MARGIN-LEFT: 10em; MARGIN-RIGHT: =
+0em; FONT-STYLE: normal; FONT-FAMILY: arial, helvetica, sans-serif
+}
+.Head3ATOC {
+	FONT-WEIGHT: normal; FONT-SIZE: 13px; MARGIN-LEFT: 10em; MARGIN-RIGHT: =
+0em; FONT-STYLE: normal; FONT-FAMILY: arial, helvetica, sans-serif
+}
+.Head3-ProcedureTOC {
+	FONT-WEIGHT: normal; FONT-SIZE: 13px; MARGIN-LEFT: 10em; MARGIN-RIGHT: =
+0em; FONT-STYLE: normal; FONT-FAMILY: arial, helvetica, sans-serif
+}
+.Head3CSRTOC {
+	FONT-WEIGHT: normal; FONT-SIZE: 13px; MARGIN-LEFT: 10em; MARGIN-RIGHT: =
+0em; FONT-STYLE: normal; FONT-FAMILY: arial, helvetica, sans-serif
+}
+.Head3-OptCatTOC {
+	FONT-WEIGHT: normal; FONT-SIZE: 13px; MARGIN-LEFT: 10em; MARGIN-RIGHT: =
+0em; FONT-STYLE: normal; FONT-FAMILY: arial, helvetica, sans-serif
+}
+.Head3PTOC {
+	FONT-WEIGHT: normal; FONT-SIZE: 13px; MARGIN-LEFT: 10em; MARGIN-RIGHT: =
+0em; FONT-STYLE: normal; FONT-FAMILY: arial, helvetica, sans-serif
+}
+.FigureCaptionLOF {
+	FONT-WEIGHT: normal; FONT-SIZE: 15px; MARGIN: 0.65em 0em 0em 2em; =
+TEXT-TRANSFORM: none; COLOR: black; TEXT-INDENT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: arial, helvetica, sans-serif; TEXT-ALIGN: left; =
+FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.FigureCaption-WideLOF {
+	FONT-WEIGHT: normal; FONT-SIZE: 15px; MARGIN: 0.65em 0em 0em 2em; =
+TEXT-TRANSFORM: none; COLOR: black; TEXT-INDENT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: arial, helvetica, sans-serif; TEXT-ALIGN: left; =
+FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.FigureCaptionALOF {
+	FONT-WEIGHT: normal; FONT-SIZE: 15px; MARGIN: 0.65em 0em 0em 2em; =
+TEXT-TRANSFORM: none; COLOR: black; TEXT-INDENT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: arial, helvetica, sans-serif; TEXT-ALIGN: left; =
+FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.FigureCaptionPLOF {
+	FONT-WEIGHT: normal; FONT-SIZE: 15px; MARGIN: 0.65em 0em 0em 2em; =
+TEXT-TRANSFORM: none; COLOR: black; TEXT-INDENT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: arial, helvetica, sans-serif; TEXT-ALIGN: left; =
+FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.FigureCaptionGLOF {
+	FONT-WEIGHT: normal; FONT-SIZE: 15px; MARGIN: 0.65em 0em 0em 2em; =
+TEXT-TRANSFORM: none; COLOR: black; TEXT-INDENT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: arial, helvetica, sans-serif; TEXT-ALIGN: left; =
+FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.FigureCaptionG-WideLOF {
+	FONT-WEIGHT: normal; FONT-SIZE: 15px; MARGIN: 0.65em 0em 0em 2em; =
+TEXT-TRANSFORM: none; COLOR: black; TEXT-INDENT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: arial, helvetica, sans-serif; TEXT-ALIGN: left; =
+FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.FigureCaptionA-WideLOF {
+	FONT-WEIGHT: normal; FONT-SIZE: 15px; MARGIN: 0.65em 0em 0em 2em; =
+TEXT-TRANSFORM: none; COLOR: black; TEXT-INDENT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: arial, helvetica, sans-serif; TEXT-ALIGN: left; =
+FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.FigureCaptionP-WideLOF {
+	FONT-WEIGHT: normal; FONT-SIZE: 15px; MARGIN: 0.65em 0em 0em 2em; =
+TEXT-TRANSFORM: none; COLOR: black; TEXT-INDENT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: arial, helvetica, sans-serif; TEXT-ALIGN: left; =
+FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.TableCaptionLOT {
+	FONT-WEIGHT: normal; FONT-SIZE: 15px; MARGIN: 0.65em 0em 0em 2em; =
+TEXT-TRANSFORM: none; COLOR: black; TEXT-INDENT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: arial, helvetica, sans-serif; TEXT-ALIGN: left; =
+FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.TableCaption-WideLOT {
+	FONT-WEIGHT: normal; FONT-SIZE: 15px; MARGIN: 0.65em 0em 0em 2em; =
+TEXT-TRANSFORM: none; COLOR: black; TEXT-INDENT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: arial, helvetica, sans-serif; TEXT-ALIGN: left; =
+FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.TableCaptionALOT {
+	FONT-WEIGHT: normal; FONT-SIZE: 15px; MARGIN: 0.65em 0em 0em 2em; =
+TEXT-TRANSFORM: none; COLOR: black; TEXT-INDENT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: arial, helvetica, sans-serif; TEXT-ALIGN: left; =
+FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.TableCaptionA-WideLOT {
+	FONT-WEIGHT: normal; FONT-SIZE: 15px; MARGIN: 0.65em 0em 0em 2em; =
+TEXT-TRANSFORM: none; COLOR: black; TEXT-INDENT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: arial, helvetica, sans-serif; TEXT-ALIGN: left; =
+FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.TableCaptionGLOT {
+	FONT-WEIGHT: normal; FONT-SIZE: 15px; MARGIN: 0.65em 0em 0em 2em; =
+TEXT-TRANSFORM: none; COLOR: black; TEXT-INDENT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: arial, helvetica, sans-serif; TEXT-ALIGN: left; =
+FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.TableCaptionPLOT {
+	FONT-WEIGHT: normal; FONT-SIZE: 15px; MARGIN: 0.65em 0em 0em 2em; =
+TEXT-TRANSFORM: none; COLOR: black; TEXT-INDENT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: arial, helvetica, sans-serif; TEXT-ALIGN: left; =
+FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.TableCaptionP-WideLOT {
+	FONT-WEIGHT: normal; FONT-SIZE: 15px; MARGIN: 0.65em 0em 0em 2em; =
+TEXT-TRANSFORM: none; COLOR: black; TEXT-INDENT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: arial, helvetica, sans-serif; TEXT-ALIGN: left; =
+FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.TableCaptionG-WideLOT {
+	FONT-WEIGHT: normal; FONT-SIZE: 15px; MARGIN: 0.65em 0em 0em 2em; =
+TEXT-TRANSFORM: none; COLOR: black; TEXT-INDENT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: arial, helvetica, sans-serif; TEXT-ALIGN: left; =
+FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.CodeCaptionLOP {
+	FONT-WEIGHT: normal; FONT-SIZE: 15px; MARGIN: 0.65em 0em 0em 2em; =
+TEXT-TRANSFORM: none; COLOR: black; TEXT-INDENT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: arial, helvetica, sans-serif; TEXT-ALIGN: left; =
+FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.CodeCaption-WideLOP {
+	FONT-WEIGHT: normal; FONT-SIZE: 15px; MARGIN: 0.65em 0em 0em 2em; =
+TEXT-TRANSFORM: none; COLOR: black; TEXT-INDENT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: arial, helvetica, sans-serif; TEXT-ALIGN: left; =
+FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.CodeCaptionALOP {
+	FONT-WEIGHT: normal; FONT-SIZE: 15px; MARGIN: 0.65em 0em 0em 2em; =
+TEXT-TRANSFORM: none; COLOR: black; TEXT-INDENT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: arial, helvetica, sans-serif; TEXT-ALIGN: left; =
+FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.CodeCaptionA-WideLOP {
+	FONT-WEIGHT: normal; FONT-SIZE: 15px; MARGIN: 0.65em 0em 0em 2em; =
+TEXT-TRANSFORM: none; COLOR: black; TEXT-INDENT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: arial, helvetica, sans-serif; TEXT-ALIGN: left; =
+FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.CodeCaptionG-WideLOP {
+	FONT-WEIGHT: normal; FONT-SIZE: 15px; MARGIN: 0.65em 0em 0em 2em; =
+TEXT-TRANSFORM: none; COLOR: black; TEXT-INDENT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: arial, helvetica, sans-serif; TEXT-ALIGN: left; =
+FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.CodeCaptionGLOP {
+	FONT-WEIGHT: normal; FONT-SIZE: 15px; MARGIN: 0.65em 0em 0em 2em; =
+TEXT-TRANSFORM: none; COLOR: black; TEXT-INDENT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: arial, helvetica, sans-serif; TEXT-ALIGN: left; =
+FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.CodeCaptionP {
+	FONT-WEIGHT: normal; FONT-SIZE: 15px; MARGIN: 0.65em 0em 0em 2em; =
+TEXT-TRANSFORM: none; COLOR: black; TEXT-INDENT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: arial, helvetica, sans-serif; TEXT-ALIGN: left; =
+FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.CodeCaptionP-WideLOP {
+	FONT-WEIGHT: normal; FONT-SIZE: 15px; MARGIN: 0.65em 0em 0em 2em; =
+TEXT-TRANSFORM: none; COLOR: black; TEXT-INDENT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: arial, helvetica, sans-serif; TEXT-ALIGN: left; =
+FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.full-width {
+	WIDTH: 100%
+}
+.complete-break {
+	CLEAR: both
+}
+.pTableHr {
+	COLOR: #3e647e; BACKGROUND-COLOR: #3e647e
+}
+.GroupTitlesIX {
+	FONT-WEIGHT: bold; FONT-SIZE: 18px; MARGIN: 1.5em 0em 0em; =
+TEXT-TRANSFORM: none; COLOR: #3e647e; TEXT-INDENT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; TEXT-ALIGN: =
+left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+P.Level1IX {
+	FONT-WEIGHT: normal; FONT-SIZE: 13px; MARGIN: 0.25em 0em 0em 2em; =
+TEXT-TRANSFORM: none; COLOR: black; TEXT-INDENT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; TEXT-ALIGN: =
+left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+P.Level2IX {
+	FONT-WEIGHT: normal; FONT-SIZE: 13px; MARGIN: 0.25em 0em 0em 4em; =
+TEXT-TRANSFORM: none; COLOR: black; TEXT-INDENT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; TEXT-ALIGN: =
+left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+P.Level3IX {
+	FONT-WEIGHT: normal; FONT-SIZE: 13px; MARGIN: 0.25em 0em 0em 6em; =
+TEXT-TRANSFORM: none; COLOR: black; TEXT-INDENT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; TEXT-ALIGN: =
+left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+P.Level4IX {
+	FONT-WEIGHT: normal; FONT-SIZE: 13px; MARGIN: 0.25em 0em 0em 8em; =
+TEXT-TRANSFORM: none; COLOR: black; TEXT-INDENT: 0em; FONT-STYLE: =
+normal; FONT-FAMILY: Arial, Verdana, Helvetica, sans-serif; TEXT-ALIGN: =
+left; FONT-VARIANT: normal; TEXT-DECORATION: none
+}
+.GlossTerm {
+	FONT-WEIGHT: bold; FONT-SIZE: 115%; FONT-STYLE: normal
+}
+.GlossText {
+	MARGIN: 0em 0em 3em 3em
+}
+.footnote {
+	FONT-SIZE: 10px; VERTICAL-ALIGN: super
+}
+SPAN.Footnote {
+	FONT-SIZE: small; VERTICAL-ALIGN: super
+}
+
+------=_NextPart_000_0000_01CDB819.2C97EE20--
